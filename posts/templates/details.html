@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>update?</title>
+</head>
+
+<body>
+	<h1> Update/delete</h1>
+
+	<form action="{% url 'posts:details' id=post.id %}" method = "POST">
+
+		{% csrf_token %}
+		{{ form }}
+
+		<input type="submit" value ="update">
+
+	</form>
+
+	<form action="{% url 'posts:delete' id=post.id %}" method="POST">
+        {% csrf_token %}
+
+
+        <input type="submit" value="Delete">
+    </form>
+
+	
+</body>
+</html>
