@@ -11,17 +11,9 @@ class PostForm(forms.ModelForm):
 		"content",
 
 		]
-class UpdatePostForm(forms.ModelForm):
-	class Meta:
-		model = Post
-		fields =[
-		"title",
-		"content",
-
-		]
 
 		widgets={
-			
+
 			"content": Textarea(),
 
 		}

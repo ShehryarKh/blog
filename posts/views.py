@@ -1,11 +1,11 @@
 from django.shortcuts import render, redirect
 from posts.models import Post
-from .forms import PostForm,UpdatePostForm
+from .forms import PostForm
 from django.shortcuts import get_object_or_404
 
 # Create your views here.
 def index(request):
-	blog_list = Post.objects.all()
+	blog_list = Post.objects.all().order_by('-updated_at')
 
 	context = {
 		"posts" : blog_list
@@ -24,18 +24,23 @@ def create(request):
 		
 		if form.is_valid():
 			form.save()
-		return redirect('posts:index')
+			return redirect('posts:index')
+		else:
+			context = {
+				"form":form
+			}
+			return render(request,'create.html',context)
 
 def details(request,id):
 	if request.method=="POST":
 		task = get_object_or_404(Post,pk=id)
-		post = UpdatePostForm(request.POST,instance = task)
+		post = PostForm(request.POST,instance = task)
 		if post.is_valid():
 			post.save()
 			return redirect('posts:index')
 	if request.method == "GET":
 		task = get_object_or_404(Post,pk=id)
-		form = UpdatePostForm(instance = task)
+		form = PostForm(instance = task)
 		context ={
 		"post": task,
 		"form":form

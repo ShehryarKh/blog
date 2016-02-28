@@ -1,21 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title>Document</title>
-</head>
-<body>
-<h5> <a type="button"href="{% url 'posts:create' %}"><button type="button">create</h2></a>
+{% extends "base.html" %}
 
+{% block content %}
+
+<h5 class = "CreateButton"> <a type="button"href="{% url 'posts:create' %}"><button type="button">create</h2></a>
 
 	{% for post in posts %}
-		<div>
-			<h2><a href="/posts/details/{{ post.id }}">{{post.title}}</h2></a>
-			<p>{{post.content}}</p>
+
+		<div class = "row">
+			<div class="small-2 large-8 columns">
+				<h2 class = "title"><a href="/posts/details/{{ post.id }}">{{post.title}}</h2></a>
+				<div clas = "post">
+					<p>{{post.content}}</p>
+				</div>
+			</div>
+
 		</div>
 
 	{% empty %}
 	{% endfor %}
+{% endblock content %}
 
-</body>
-</html>
