@@ -15,7 +15,6 @@
 }
 
 .created{
-    background-color: pink;
 }
 .errorlist{
     color: red;
@@ -34,8 +33,16 @@
 .container_row{
 	padding: 2%;
 }
-.deletebutton{
+
+
+#delete{
     color: black;
+    background-color: red;
+    margin-left: 60%;
+}
+
+#delete .hover{
+    border:2px black;
 }
 
 .details{
