@@ -1,20 +1,69 @@
-.button{
+.creatbutton{
 	border: 20px solid black;
 }
 
 .container{
 	background-color: lightgrey;
-	width: 100%;
+	width: 90%;
 	margin: 1%;
+	margin-left: 3%;
 
 }
 
+.time{
+    font-size: 8px;
+}
+
+.created{
+    background-color: pink;
+}
+.errorlist{
+    color: red;
+}
 .title{
-		border: .01em solid black;
+		border: .01% solid black;
 		padding: 2%;
 
 }
 
 .post{
+	border: :1px solid black;
 	margin: 3%
+}
+
+.container_row{
+	padding: 2%;
+}
+.deletebutton{
+    color: black;
+}
+
+.details{
+
+	border: 1px solid black;
+	padding: 30px;
+}
+
+input[type="submit"] {
+        -webkit-appearance: none;
+    -moz-appearance: none;
+    border-radius: 0;
+    border-style: solid;
+    border-width: 0;
+    cursor: pointer;
+    font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
+    font-weight: normal;
+    line-height: normal;
+    margin: 0 0 1.25rem;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    padding: 1rem 2rem 1.0625rem 2rem;
+    font-size: 1rem;
+    background-color: #008CBA;
+    border-color: #007095;
+    color: #FFFFFF;
+    transition: background-color 300ms ease-out;
+}
 }

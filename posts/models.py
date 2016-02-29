@@ -11,7 +11,7 @@ class Post(models.Model):
 	content = models.TextField()
 	created_at = models.DateTimeField(editable=False)
 	updated_at = models.DateTimeField()
-	slug = models.SlugField(max_length=40)
+	slug = models.SlugField(max_length=50)
 
 	def save(self, *args, **kwargs):
 		self.slug = slugify(self.title)

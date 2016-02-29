@@ -1,29 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title>update?</title>
-</head>
+{% extends "base.html" %}
+{% block content %}
 
-<body>
-	<h1> Update/delete</h1>
-
-	<form action="{% url 'posts:details' id=post.id %}" method = "POST">
+	<form action="{% url 'posts:details' slug=post.slug %}" method = "POST">
 
 		{% csrf_token %}
-		{{ form }}
+		
+		{% for field in form %}
+			  <div class= "{% if field.errors %}error{%endif%}" >
+			  	{{field.label_tag}}{{field}}
+			  </div>
+
+		        {% for error in field.errors %}
+		            <small class="error">{{ error }}</small>
+		        {% endfor %}
+		    {%endfor%}
 
 		<input type="submit" value ="update">
 
 	</form>
 
-	<form action="{% url 'posts:delete' id=post.id %}" method="POST">
+	<form action="{% url 'posts:delete' slug=post.slug %}" method="POST">
         {% csrf_token %}
 
 
-        <input type="submit" value="Delete">
+        <input id = "delete" type="submit" class ="deletebutton" value="Delete">
     </form>
 
-	
-</body>
-</html>
+{% endblock content %}

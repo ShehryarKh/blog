@@ -2,21 +2,35 @@
 
 {% block content %}
 
-<h5 class = "CreateButton"> <a type="button"href="{% url 'posts:create' %}"><button type="button">create</h2></a>
-
+<div class = "container">
+	<div class "row">
+			<h5> <a type="button"href="{% url 'posts:create' %}"><button type="button">create</h5></a>
+		
+	</div>
+</div>
+<div class = "container_row">
 	{% for post in posts %}
-
+	
 		<div class = "row">
-			<div class="small-2 large-8 columns">
-				<h2 class = "title"><a href="/posts/details/{{ post.id }}">{{post.title}}</h2></a>
-				<div clas = "post">
+			<div class="small-9 large-8 columns details">
+				<h2 class = "title"><a href="{% url 'posts:details' slug=post.slug %}">{{post.title}}</h2></a>
+				<div class = "post">
 					<p>{{post.content}}</p>
 				</div>
+				<div class = "created">
+
+				<p class = "time">last update at : {{post.updated_at}}</p>
+
+
+				</div>
+
 			</div>
 
 		</div>
+	
 
 	{% empty %}
 	{% endfor %}
+</div>
 {% endblock content %}
 

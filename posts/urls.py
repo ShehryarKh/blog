@@ -6,9 +6,9 @@ from posts import views
 
 urlpatterns = [
 
-	url(r'details/(?P<id>[0-9]+)', views.details, name='details'),
+	url(r'details/(?P<slug>[0-9A-Za-z-]+)', views.details, name='details'),
     url(r'create$', views.create, name='create'),
-    url(r'^delete/(?P<id>[0-9]+)', views.delete, name = 'delete'),
+    url(r'^delete/(?P<slug>[0-9A-Za-z-]+)', views.delete, name = 'delete'),
 
     url(r'^$', views.index, name = 'index'),
 
