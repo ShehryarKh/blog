@@ -24,7 +24,6 @@ class register(View):
 		return render(request,self.template, context)
 
 	def post(self,request):
-
 		userform = UserForm(data=request.POST)
 		profileform = UserProfileForm(data=request.POST)
 
@@ -88,6 +87,8 @@ class create(View):
 			return render(request,self.template,context)
 
 class details(View):
+	template = "details.html"
+
 	def post(self,request,slug):
 
 		#rose for commenting
