@@ -4,21 +4,22 @@ from .forms import PostForm,UserForm,UserProfileForm
 from django.shortcuts import get_object_or_404
 
 #user registration
-def register(request):
+class register(View):
+	template = 'register.html'
+def get(self,request):
 	register = False
 	if request.user.is_authenticated():
 		return render(request,"index.html", {})
 
-	if request.method =="GET":
-		userform = UserForm()
-		profileform = UserProfileForm()
+	userform = UserForm()
+	profileform = UserProfileForm()
 
-		context={
-		'userform':userform,
-		'profileform':profileform
-		}
+	context={
+	'userform':userform,
+	'profileform':profileform
+	}
 
-		return render(request,"register.html", context)
+	return render(request,self.template, context)
 
 	if request.method =="POST":
 
@@ -40,6 +41,13 @@ def register(request):
 			}
 
 			return render(request,'register.html',context)
+
+def login(request):
+	if request.method =="GET":
+		return render(request,'login.html',{})
+	if request.method =="POST":
+		username = request.POST['username']
+		password = request.POST['password']
 
 
 
