@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<form method ="POST" action="posts:register">
+	{% csrf_token %}
+
+	{{ userform.as_p }}
+	{{ profileform.as_p }}
+
+</form>
+      <input type="submit" name="register" value="Register" />
+
+{% endblock content %}

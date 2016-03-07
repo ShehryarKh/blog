@@ -1,7 +1,47 @@
 from django.shortcuts import render, redirect
 from posts.models import Post
-from .forms import PostForm
+from .forms import PostForm,UserForm,UserProfileForm
 from django.shortcuts import get_object_or_404
+
+#user registration
+def register(request):
+	register = False
+	if request.user.is_authenticated():
+		return render(request,"index.html", {})
+
+	if request.method =="GET":
+		userform = UserForm()
+		profileform = UserProfileForm()
+
+		context={
+		'userform':userform,
+		'profileform':profileform
+		}
+
+		return render(request,"register.html", context)
+
+	if request.method =="POST":
+
+		userform = UserForm(data=request.POST)
+		profileform = UserProfileForm(data=request.POST)
+
+		if userform.is_valid and profileform.is_valid:
+			user = userform.save()
+
+			profile = profileform.save(commit=False)
+			profile.user = user
+
+			profile.save()
+			return redirect('/')
+		else:
+			context={
+			'userform':userform,
+			'profileform':profileform
+			}
+
+			return render(request,'register.html',context)
+
+
 
 # Create your views here.
 def index(request):

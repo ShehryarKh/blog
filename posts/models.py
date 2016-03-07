@@ -1,10 +1,20 @@
 from django.db import models
 from django.utils import timezone
+from django.contrib.auth.models import User
 
 from django.utils.text import slugify
 
 
 # Create your models here.
+
+#model blog
+class UserProfile(models.Model):
+	user = models.OneToOneField(User)
+	website = models.URLField(blank=True)
+	profile_img = models.ImageField(blank=True)
+
+
+
 
 class Post(models.Model):
 	title = models.CharField(max_length = 50)
