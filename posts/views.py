@@ -5,6 +5,9 @@ from posts.models import Post
 from .forms import PostForm,UserForm,UserProfileForm
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.views.generic import TemplateView
+
+from braces.views import LoginRequiredMixin
 
 
 #user registration
@@ -67,7 +70,7 @@ class index(View):
 		return render(request, 'index.html', context)
 
 
-class create(View):
+class create(LoginRequiredMixin,TemplateView):
 	template = "create.html"
 
 	def get(self,request):
@@ -89,8 +92,8 @@ class create(View):
 			}
 			return render(request,self.template,context)
 
-@login_required
-class details(View):
+
+class details(LoginRequiredMixin, TemplateView):
 	template = "details.html"
 
 	def post(self,request,slug):
@@ -127,12 +130,13 @@ class delete(View):
 
 class login(View):
 	template = "login.html"
-
-	if request.user.is_authenticated():
-        messages.warning(request, "You are already logged in.")
-        return render(request, 'login.html')
+	
 
 	def post(self,request):
+		if request.user.is_authenticated():
+			messages.warning(request, "You are already logged in.")
+			return render(request, 'login.html')
+
 		username = request.POST['username']
 		password = request.POST['password']
 
