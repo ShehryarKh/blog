@@ -1,24 +1,27 @@
 from django.shortcuts import render, redirect
 from django.views.generic import View
-
+from django.contrib.auth import authenticate, login
 from posts.models import Post
 from .forms import PostForm,UserForm,UserProfileForm
 from django.shortcuts import get_object_or_404
+from django.contrib.auth.decorators import login_required
+
 
 #user registration
 class register(View):
 	template = "register.html"
+
 	def get(self,request):
 		register = False
 		if request.user.is_authenticated():
-			return render(request,"index.html", {})
+			return render(request,"index.html")
 
 		userform = UserForm()
 		profileform = UserProfileForm()
 
-		context={
-		'userform':userform,
-		'profileform':profileform
+		context = {
+			'userform': userform,
+			'profileform': profileform
 		}
 
 		return render(request,self.template, context)
@@ -27,7 +30,7 @@ class register(View):
 		userform = UserForm(data=request.POST)
 		profileform = UserProfileForm(data=request.POST)
 
-		if userform.is_valid and profileform.is_valid:
+		if userform.is_valid() and profileform.is_valid():
 			user = userform.save()
 
 			profile = profileform.save(commit=False)
@@ -63,6 +66,7 @@ class index(View):
 			"posts" : blog_list
 		}
 		return render(request, 'index.html', context)
+
 
 class create(View):
 	template = "create.html"
@@ -120,6 +124,48 @@ class delete(View):
 		task = get_object_or_404(Post,slug=slug)
 		task.delete()
 		return redirect("posts:index")
+
+class login(View):
+	template = "login.html"
+
+	def post(self,request):
+		username = request.POST['username']
+		password = request.POST['password']
+
+		user = authenticate(username=username, password=password)
+
+		if user:
+
+			if user.is_active:
+				#create a session
+
+				login(request,user)
+
+				return redirect('/')
+			else:
+				return HttpResponse("your rango account is disabled.")
+
+		else:
+			print("Invalid login details")
+			return HttpResponse("Invalid details")
+
+	def get(self,request):
+		return render(request,'login.html', {})
+
+
+@login_required
+def logout(request):
+	logout(request)
+
+	return redirect('/')
+
+
+
+
+
+
+
+
 
 
 

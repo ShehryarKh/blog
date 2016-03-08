@@ -2,13 +2,15 @@
 
 {% block content %}
 
-<form method ="POST" action="posts:register">
+<form method ="POST" action="{% url 'posts:register' %}">
 	{% csrf_token %}
 
 	{{ userform.as_p }}
 	{{ profileform.as_p }}
 
+	<input type="submit" name="register" value="Register" />
+
+
 </form>
-      <input type="submit" name="register" value="Register" />
 
 {% endblock content %}
