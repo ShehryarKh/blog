@@ -35,7 +35,6 @@ class register(View):
 
 			profile = profileform.save(commit=False)
 			profile.user = user
-
 			profile.save()
 			return redirect('/')
 		else:
@@ -90,6 +89,7 @@ class create(View):
 			}
 			return render(request,self.template,context)
 
+@login_required
 class details(View):
 	template = "details.html"
 
@@ -127,6 +127,10 @@ class delete(View):
 
 class login(View):
 	template = "login.html"
+
+	if request.user.is_authenticated():
+        messages.warning(request, "You are already logged in.")
+        return render(request, 'login.html')
 
 	def post(self,request):
 		username = request.POST['username']
