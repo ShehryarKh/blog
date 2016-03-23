@@ -71,6 +71,7 @@ class index(View):
 
 class create(LoginRequiredMixin,TemplateView):
 	template = "create.html"
+	login_url = "posts:login"
 
 	def get(self,request):
 		context = {
@@ -80,7 +81,6 @@ class create(LoginRequiredMixin,TemplateView):
 
 	def post(self,request):
 		form = PostForm(request.POST)
-		#rose for commenting
 		
 		if form.is_valid():
 			form.save()
@@ -97,14 +97,12 @@ class details(LoginRequiredMixin, TemplateView):
 
 	def post(self,request,slug):
 
-		#rose for commenting
 		task = get_object_or_404(Post,slug=slug)
 		post = PostForm(request.POST,instance = task)
 		if post.is_valid():
 			post.save()
 			return redirect('posts:index')
 		else:
-			#rose for commenting
 			context = {
 				"post": task,
 				"form":post,
@@ -115,12 +113,10 @@ class details(LoginRequiredMixin, TemplateView):
 		task = get_object_or_404(Post,slug=slug)
 		form = PostForm(instance = task)
 		context ={
-		#rose for commenting
 		"post": task,
 		"form":form
 		}
 		return render(request, 'details.html', context)
-		#rose for commenting
 class delete(View):
 	def post(self,request,slug):
 		task = get_object_or_404(Post,slug=slug)
@@ -130,7 +126,6 @@ class delete(View):
 class login(View):
 	template = "login.html"
 	
-
 	def post(self,request):
 		if request.user.is_authenticated():
 			messages.warning(request, "You are already logged in.")
