@@ -9,7 +9,6 @@ from django.views.generic import TemplateView
 
 from braces.views import LoginRequiredMixin
 
-
 #user registration
 class register(View):
 	template = "register.html"
