@@ -13,5 +13,4 @@ urlpatterns = [
     url(r'^$',views.index.as_view(), name = 'index'),
 	url(r'^login$',views.login_user.as_view(), name='login'),
 
-
 ]

@@ -3,7 +3,7 @@ from django.views.generic import View
 from django.http import HttpResponse
 from django.contrib import messages
 
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from posts.models import Post
 from .forms import PostForm,UserForm,UserProfileForm
 from django.shortcuts import get_object_or_404
@@ -157,7 +157,7 @@ class login_user(View):
 
 
 @login_required
-def logout(request):
+def logout_user(request):
 	logout(request)
 
 	return redirect('/')
