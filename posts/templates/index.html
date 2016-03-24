@@ -7,10 +7,14 @@
 			<h5> <a type="button"href="{% url 'posts:create' %}"><button type="button">create</h5></a>
 		
 	</div>
+	{% if user.is_authenticated() %}
 	<div class "row">
 			<h5> <a type="button" href="{% url 'posts:register' %}"><button type="button">register</h5></a>
-		
 	</div>
+	{% else %}
+	<div class "row">
+	</div>
+	{% endif %}
 <div class "row">
 			<h5> <a type="button"href="{% url 'posts:login' %}"><button type="button">login</h5></a>
 		
@@ -28,6 +32,7 @@
 				<div class = "created">
 					
 				<p class = "time">last update at : {{post.updated_at}}</p>
+				<p> created by: {{user}}</p>
 
 
 				</div>

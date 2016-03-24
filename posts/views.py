@@ -1,5 +1,8 @@
 from django.shortcuts import render, redirect
 from django.views.generic import View
+from django.http import HttpResponse
+from django.contrib import messages
+
 from django.contrib.auth import authenticate, login
 from posts.models import Post
 from .forms import PostForm,UserForm,UserProfileForm
@@ -69,19 +72,19 @@ class index(View):
 		return render(request, 'index.html', context)
 
 
-class create(LoginRequiredMixin,TemplateView):
+class create(LoginRequiredMixin,View):
 	template = "create.html"
 	login_url = "posts:login"
 
 	def get(self,request):
+		user = request.user
 		context = {
-		"form":PostForm()
+		"form":PostForm(initial={'user':request.user})
 		}
 		return render(request, self.template, context)
 
 	def post(self,request):
 		form = PostForm(request.POST)
-		
 		if form.is_valid():
 			form.save()
 			return redirect('posts:index')
@@ -123,9 +126,8 @@ class delete(View):
 		task.delete()
 		return redirect("posts:index")
 
-class login(View):
+class login_user(View):
 	template = "login.html"
-	
 	def post(self,request):
 		if request.user.is_authenticated():
 			messages.warning(request, "You are already logged in.")
@@ -140,7 +142,6 @@ class login(View):
 
 			if user.is_active:
 				#create a session
-
 				login(request,user)
 
 				return redirect('/')

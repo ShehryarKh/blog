@@ -17,6 +17,7 @@ class UserProfileForm(forms.ModelForm):
 	class Meta:
 		model =UserProfile
 		fields=('website','profile_img')
+
 		
 
 class PostForm(forms.ModelForm):
@@ -25,11 +26,14 @@ class PostForm(forms.ModelForm):
 		fields =[
 		"title",
 		"content",
-
+		"user",
 		]
 
 		widgets={
 
 			"content": Textarea(),
+			"user" : forms.HiddenInput(),
+
+			
 
 		}
