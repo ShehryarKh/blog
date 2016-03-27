@@ -50,13 +50,7 @@ class register(View):
 
 			return render(request,self.template,context)
 
-# class login(self,request):
 
-# 	if request.method =="GET":
-# 		return render(request,'login.html',{})
-# 	if request.method =="POST":
-# 		username = request.POST['username']
-# 		password = request.POST['password']
 
 
 
@@ -87,7 +81,7 @@ class create(LoginRequiredMixin,View):
 		form = PostForm(request.POST)
 		if form.is_valid():
 			form.save()
-			return redirect('posts:index')
+			return redirect('/')
 		else:
 			context = {
 				"form":form
@@ -124,7 +118,7 @@ class delete(View):
 	def post(self,request,slug):
 		task = get_object_or_404(Post,slug=slug)
 		task.delete()
-		return redirect("posts:index")
+		return redirect("/")
 
 class login_user(View):
 	template = "login.html"
