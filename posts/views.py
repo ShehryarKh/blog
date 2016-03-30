@@ -91,6 +91,8 @@ class create(LoginRequiredMixin,View):
 
 class details(LoginRequiredMixin, TemplateView):
 	template = "details.html"
+	login_url = "posts:login"
+
 
 	def post(self,request,slug):
 

@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
+		<h3>Welcome {{user}} </h3>
 
 <div class = "container large-6 small-6 columns">
 	{% if user.is_active %}
@@ -31,7 +32,11 @@
 	
 		<div class = "row">
 			<div class="small-9 large-8 columns details">
+				{% if post.user == user %}
 				<h2 class = "title"><a href="{% url 'posts:details' slug=post.slug %}">{{post.title}}</h2></a>
+								{% else %}
+				<h2 class = "title">{{post.title}}</h2>
+			{% endif %}
 				<div class = "post">
 					<p>{{post.content}}</p>
 				</div>

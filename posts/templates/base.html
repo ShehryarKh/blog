@@ -6,16 +6,20 @@
     <title>Bloggy: A Blog about Blogs</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.2/css/foundation.css" />
     <link rel="stylesheet" type="text/css" href="static/blog.css">
+    <link type="text/css" rel="stylesheet" href="{% static 'materialize/bin/materialize.css' %}"  media="screen,projection"/>
+
 </head>
 <body>
 
 <div class = "container large-6 small-6 columns">
-		<h3>Welcome to Shehryar Khan's blog </h3>
 
 		{% block content %}
 
 		{% endblock content %}
 	</div>
-	
+{% block footer %}
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="{% static 'materialize/bin/materialize.js' %}"></script>
+{% endblock %}
 </body>
 </html>
